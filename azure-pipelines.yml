@@ -70,6 +70,13 @@ steps:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
+- task: dependency-check-build-task@5
+  inputs:
+    projectName: 'web-game'
+    scanPath: '**/*.csproj'
+    format: 'HTML'
+    failOnCVSS: '8'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
