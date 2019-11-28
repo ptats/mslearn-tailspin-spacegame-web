@@ -74,6 +74,7 @@ steps:
   inputs:
     projectName: 'web-game'
     scanPath: '**/*.csproj'
+    arguments: '--scan $(wwwrootDir)'
     format: 'HTML'
     failOnCVSS: '8'
 
