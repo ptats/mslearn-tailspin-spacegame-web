@@ -90,3 +90,19 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
+
+- task: dependency-check-build-task@5
+  displayName: 'Dependency Check'
+  inputs:
+    projectName: 'Security Automation'
+    scanPath: '**/*.csproj'
+    format: 'HTML, JUNIT'
+    failOnCVSS: '8'
+    arguments: '--out $(Build.ArtifactStagingDirectory)'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'dependency-check\*junit.xml'
+    searchFolder: '$(Common.TestResultsDirectory)'
+    testRunTitle: 'Dependency Check'
